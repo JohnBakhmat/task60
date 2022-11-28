@@ -1,6 +1,6 @@
 import { decode } from "./caesar";
 import chalk from "chalk";
-
+import fs from "fs/promises";
 const bruteForce = (
   input: string,
   alphabet: string,
@@ -20,19 +20,7 @@ const bruteForce = (
   console.log(log);
 };
 
-//ENG version
-{
-  const input = "CQN ZDRLT KAXFW OXG SDVYB XENA CQN UJIH MXP";
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const susWords = ["THE", "AND", "FOR", "ARE"];
-
-  bruteForce(input, alphabet, susWords);
-}
-
-//RUS version
-{
-  const input = "АРЬШ ЮМПЗШЖ ЖЙУЖМЪЩЖ ЦЯМХД ЧШЦЩЪГФ АРЬШЦФ";
-  const alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-  const susWords = ["ОЧЕНЬ", "ИЛИ", "НО", "ШИФР"];
-  bruteForce(input, alphabet, susWords);
-}
+fs.readFile("./input.json", "utf-8").then((inputData) => {
+  const { text, alphabet, susWords } = JSON.parse(inputData);
+  bruteForce(text, alphabet, susWords);
+});
